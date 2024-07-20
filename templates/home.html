@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <title>Travelling Allowance Bill</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-btn {
+            cursor: pointer;
+            color: blue;
+            font-weight: bold;
+        }
+
+        .add-row-btn {
+            color: green;
+        }
+
+        .delete-row-btn {
+            color: red;
+        }
+    </style>
+    <script>
+        function addRow1() {
+            const table = document.getElementById("travelTable");
+            const newRow = table.insertRow();
+
+            // Add cells for each column
+            const columns1 = ['station', 'departure_date', 'departure_hour', 'arrival_date', 'arrival_hour', 'mode_of_journey', 'add_row', 'delete_row'];
+            columns1.forEach((columnName, index) => {
+                const newCell = newRow.insertCell(index);
+                if (columnName === 'add_row') {
+                    newCell.innerHTML = '<span class="action-btn add-row-btn" onclick="addrow1()">+</span>';
+                } else if (columnName === 'delete_row') {
+                    newCell.innerHTML = '<span class="action-btn delete-row-btn" onclick="deleteRow(this)">-</span>';
+                } else if (columnName === 'fare_amount' || columnName === 'actual_expenses_amount') {
+                    newCell.innerHTML = '<input type="number" name="' + columnName + '" onchange="calculateTotal()">';
+                } else {
+                    newCell.innerHTML = '<input type="text" name="' + columnName + '">';
+                }
+            });
+        }
+        function addRow2() {
+            const table = document.getElementById("JourneyFare");
+            const newRow = table.insertRow();
+
+            // Add cells for each column
+            const columns2 =['class', 'no_of_fares', 'fare_amount', 'distance_mileage', 'distance_ordinary', 'distance_other_rates',
+                'no_of_days', 'add_row', 'delete_row']
+            columns2.forEach((columnName, index) => {
+                const newCell = newRow.insertCell(index);
+                if (columnName === 'add_row') {
+                    newCell.innerHTML = '<span class="action-btn add-row-btn" onclick="addrow2()">+</span>';
+                } else if (columnName === 'delete_row') {
+                    newCell.innerHTML = '<span class="action-btn delete-row-btn" onclick="deleteRow(this)">-</span>';
+                } else if (columnName === 'fare_amount' || columnName === 'actual_expenses_amount') {
+                    newCell.innerHTML = '<input type="number" name="' + columnName + '" onchange="calculateTotal()">';
+                } else {
+                    newCell.innerHTML = '<input type="text" name="' + columnName + '">';
+                }
+            });
+        }
+
+        function addRow3() {
+            const table = document.getElementById("Remark");
+            const newRow = table.insertRow();
+
+            // Add cells for each column
+            const columns3 =['actual_expenses_particulars', 'actual_expenses_amount', 'purpose', 'remarks', 'add_row', 'delete_row']
+            columns3.forEach((columnName, index) => {
+                const newCell = newRow.insertCell(index);
+                if (columnName === 'add_row') {
+                    newCell.innerHTML = '<span class="action-btn add-row-btn" onclick="addRow3()">+</span>';
+                } else if (columnName === 'delete_row') {
+                    newCell.innerHTML = '<span class="action-btn delete-row-btn" onclick="deleteRow(this)">-</span>';
+                } else if (columnName === 'fare_amount' || columnName === 'actual_expenses_amount') {
+                    newCell.innerHTML = '<input type="number" name="' + columnName + '" onchange="calculateTotal()">';
+                } else {
+                    newCell.innerHTML = '<input type="text" name="' + columnName + '">';
+                }
+            });
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            table.insertRow();
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Travelling Allowance Bill</h1>
+    <h2>B.V.V. Sangha's Basaveshwar Engineering College, Bagalkot</h2>
+    <form>
+        <label for="district">District:</label>
+        <input type="text" id="district" name="district">
+        <label for="hq">Head Quarters:</label>
+        <input type="text" id="hq" name="hq"><br><br>
+
+        <label for="name">Name & Designation:</label>
+        <input type="text" id="name" name="name">
+        <label for="month">Month of:</label>
+        <input type="text" id="month" name="month">
+        <label for="voucher">Voucher No.:</label>
+        <input type="text" id="voucher" name="voucher"><br><br>
+
+        <table id="travelTable">
+            <tr>
+                <th rowspan="2">Station</th>
+                <th colspan="2">Departure</th>
+                <th colspan="2">Arrival</th>
+                <th rowspan="2">Mode of Journey <br>(e.g. By Rail, Mail, Air, Road)</th>
+                <th colspan="2" rowspan="2">Actions</th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>Hour</th>
+                <th>Date</th>
+                <th>Hour</th>
+
+            </tr>
+            <tr>
+                <td><input type="text" name="station"></td>
+                <td><input type="date" name="departure_date"></td>
+                <td><input type="time" name="departure_hour"></td>
+                <td><input type="date" name="arrival_date"></td>
+                <td><input type="time" name="arrival_hour"></td>
+                <td><input type="text" name="mode_of_journey"></td>
+                <td><span class="action-btn add-row-btn" onclick="addRow1()">+</span></td>
+                <td><span class="action-btn delete-row-btn" onclick="deleteRow(this)">-</span></td>
+            </tr>
+            <!-- Additional rows can be added dynamically -->
+        </table><br>
+        <table id="JourneyFare">
+            <tr>
+                <th colspan="3">Railway/Bus Journey Fare</th>
+                <th colspan="3">Distance traveled by Road or Trolley</th>
+                <th rowspan="2">No. of days for which daily allowance is admissible</th>
+                <th colspan="2" rowspan="2">Actions</th>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <th>No. of Fares</th>
+                <th>Amount</th>
+                <th>For which Mileage is admissible</th>
+                <th>At Ordinary</th>
+                <th>At other rates</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="class"></td>
+                <td><input type="number" name="no_of_fares"></td>
+                <td><input type="number" name="fare_amount" onchange="calculateTotal()"></td>
+                <td><input type="number" name="distance_mileage"></td>
+                <td><input type="number" name="distance_ordinary"></td>
+                <td><input type="number" name="distance_other_rates"></td>
+                <td><input type="number" name="no_of_days"></td>
+                <td><span class="action-btn add-row-btn" onclick="addRow2()">+</span></td>
+                <td><span class="action-btn delete-row-btn" onclick="deleteRow(this)">-</span></td>
+            </tr>
+        </table><br>
+        <table id="Remark">
+            <tr>
+                <th colspan="2">Actual Expenses</th>
+                <th rowspan="2">Purpose of Journey or Halt</th>
+                <th rowspan="2">Remarks</th>
+                <th colspan="2" rowspan="2">Actions</th>
+            </tr>
+            <tr>
+                <th>Particulars</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="actual_expenses_particulars"></td>
+                <td><input type="number" name="actual_expenses_amount" onchange="calculateTotal()"></td>
+                <td><input type="text" name="purpose"></td>
+                <td><input type="text" name="remarks"></td>
+                <td><span class="action-btn add-row-btn" onclick="addRow3()">+</span></td>
+                <td><span class="action-btn delete-row-btn" onclick="deleteRow(this)">-</span></td>
+            </tr>
+        </table>
+
+        <br>
+        <label for="total">Total Rs:</label>
+        <input type="number" id="total" name="total" readonly><br><br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
